@@ -1,0 +1,8 @@
+class DataTypeDemo2 
+{
+	public static void main(String[] args) 
+	{
+		long a = 100000000000000;
+		System.out.println("Hello World!");
+	}
+}
