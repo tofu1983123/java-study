@@ -13,5 +13,7 @@ class DataTypeDemo4
 		//大写字母'A' --->65	'B'	--->66
 		char d = 97;
 		System.out.println(d);//结果是a
+		//转义字符
+		char e = '\n'//换行  \t '\\'表示单\
 	}
 }

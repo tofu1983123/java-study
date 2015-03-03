@@ -17,5 +17,7 @@ class OperatorDemo5
 		int c = 20,d = 30;
 		boolean f3 = c++ >= 20 || d-- >= 10;
 		System.out.println(f3 + ",c=" + c + ",d=" + d);
+
+		System.out.println(!f3);
 	}
 }

@@ -14,6 +14,6 @@ class DataTypeDemo4
 		char d = 97;
 		System.out.println(d);//结果是a
 		//转义字符
-		char e = '\n'//换行  \t '\\'表示单\
+		char e = '\n';//换行  \t '\\'表示单\
 	}
 }

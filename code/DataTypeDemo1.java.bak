@@ -26,7 +26,7 @@ class DataTypeDemo1
 			¼Ó1
 			28¸ö1 0110
 		*/
-		System.out.println(Integer.toBinaryString(c));
+		System.out.println(Integer.toBinaryString(b));
 		
 		int d = -30;
 		/*

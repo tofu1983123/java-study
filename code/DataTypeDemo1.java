@@ -15,7 +15,7 @@ class DataTypeDemo1
 		//打印a的二进制	java中默认把前面的0会去掉
 		System.out.println(Integer.toBinaryString(a));
 
-		int b = -10;//去看下二进制
+		int c = -10;//去看下二进制
 		/*
 			1.推理过程
 			负数 = 正数去反 + 1

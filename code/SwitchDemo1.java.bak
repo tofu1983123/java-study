@@ -29,7 +29,7 @@ class SwitchDemo1
 		case 6:
 			System.out.println("ĞÇÆÚÁù");
 			break;
-		default
+		default :
 			System.out.println("ÊäÈëÓĞÎó!");
 			break;
 		}

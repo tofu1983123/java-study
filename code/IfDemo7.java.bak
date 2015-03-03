@@ -18,6 +18,5 @@ class IfDemo7
 			System.out.println("成绩及格");
 		if(score<60&&score>=0)
 			System.out.println("成绩不及格");
-		System.out.println("Hello World!");
 	}
 }

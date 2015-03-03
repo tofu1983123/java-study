@@ -9,7 +9,7 @@ class SwitchDemo1
 		switch (n)
 		{
 		case 0:
-			System.out.println("星期一");
+			System.out.println("星期日");
 			break;
 		case 1:
 			System.out.println("星期一");
