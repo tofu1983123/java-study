@@ -6,7 +6,7 @@ class DataTypeDemo2
 		long a = 10000000000000000l;
 		long b = 10000000000000000L;
 		long c = 100;
-		Long timeMillis = System.currentTimeMillis();
+		long timeMillis = System.currentTimeMillis();
 		System.out.println(timeMillis);
 	}
 }
