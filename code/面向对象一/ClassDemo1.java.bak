@@ -1,0 +1,21 @@
+class ClassDemo1 
+{
+	public static void main(String[] args) 
+	{
+		Person p1 = new Person();
+		Person p2 = new Person();
+	}
+}
+class Person
+{
+	double h,w;
+	int age;
+	String name;
+	void eat(){
+		System.out.println("eating......");
+	}
+	void walk(){
+		System.out.println("walking......");
+	}
+	//System.out.println("helloworld");//´íµÄ
+}
