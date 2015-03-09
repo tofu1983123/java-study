@@ -19,7 +19,7 @@ class ArrayDemo14
 			}
 		}
 	}
-	//冒泡排序,将最打的找出来,放到最后一个
+	//冒泡排序,将最大的找出来,放到最后一个
 	public void void sort1(int[] a){
 		for(int i = 0;i < a.length-1;i++){
 			for(int j = 0;j < a.length-1-i;j++){
