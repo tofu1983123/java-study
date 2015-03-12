@@ -1,0 +1,85 @@
+动态binding
+    1.父类的引用可以引用任何子类的实例对象
+    2.如果父类的引用,引用了子类的实例
+      调用方法时,如果方法构成重写,那么
+      调用子类的方法,否则调用父类的方法  ---->动态绑定(binding);
+对象数组
+
+访问权限
+  private/protected/默认的/public
+  a.private 用来修饰成员的话:说明该成员只能在类的内部访问
+  b.包的概念 包是类名的一部分,主要用于命名的管理
+    之前我们写的类,都没有声明包,就是在默认包里
+    1 显示声明包 package aa 包对系统来说就是文件夹
+    但是对于java来说是类名的一部分
+    对于有包的类:直接编码,建立包(就是文件夹)然后把.class扔进去
+                 javac -d . 类名(文件名).java
+                       -d .代表默认在当前的目录下建立包
+    2 导入包 import 包名.类名; /import 包名.*;
+    3 默认的,protected,public
+
+      默认的可以修饰成员和类 ---->代表可以在同一包下直接访问
+      protected 修饰成员  ---->在同一包中,或者不同包的子类中可以访问
+      public 修饰成员和类  ---->在不同包中可以访问
+    4 classpath 环境变量
+      寻找类的路径 默认是. 代表当前路径,多个设置的时候中间用;隔开
+
+      一般情况,成员变量private 函数public
+    5 构造函数private 如何创建对象
+        通过静态方法(Demo14.java)
+
+开发工具eclipse(绿色(解压就能用),开源(免费的))
+    1 解压,选择工作目录
+    2 file--new---->New Project---->Java Project---->输入项目名称(英文)---->finish
+    3 如果一不小心关了视图
+      Window--->Show View--->点击你想要的视图
+    4 注意:项目建立完成后,在项目管理的视图中,项目下有src目录
+      该目录就是监理我们的类的 直接右击src--->new--->Class 填写类名
+      (修改字体) Window--General--Colors and Fonts
+      运行:右击带主函数的类 Run As--->Run application
+    5 默认最常用的的快捷键alt + / 自动提示的功能
+      main alt+/
+      System.out.print() 敲 syso alt+/
+      更改快捷键:Window--偏好设置(prefeneces)--General--Keys--Content Assist--添加快捷键
+    6 学会建立包,包下建立类,直接在包中右击--->new---class
+    7 我们直接运行,并没有编译,eclipse自动帮我们完成了编译的工作
+      编译的.class在工作目录下的项目下的bin目录中
+    8 导入项目 
+        file-->import-->General-->双击Existing Project into workspace-->Browse-->选中项目名称
+JavaBean
+    JavaBean就是一个java类
+    标准的javaBean就是一个java类 属性private,有无参数的构造方法
+    对所用的属性都有getter/setter方法
+
+方法重写 补充一下
+    在方法重写(函数覆盖)的时候 访问权限可以扩大
+        要想重写方法,父类中必须不能private,因为private 子类无法直接访问
+        访问权限可以扩大,不能缩小
+
+java.lang.Object
+    1.很多类都没有导包 比如:String类,Math类
+      都是java.lang包下的类,是jdk提供的,
+      jdk提供的类中,java.lang包下的类是不用导包,是直接可用的
+    2.一个类如果没有父类,那么它的父类就是Object类
+      java中的继承是单一继承,就是一个类只有一个直接父类
+      java中的继承具有传递性
+        a.A继承了B,B继承了C,C没有父类
+        b.C的父类就是Object 那么Object类中的元素继承到了C
+          中,就继承到了B中,继承到了A中
+          可以认为B是A的父类,C也是A的父类,Object类也是A的父类
+    3.在eclipse中如何看java的源代码
+	一直按ctrl 让鼠标移入到你要看的函数or类上 第一次会出现
+        class界面上有一个选项--->Attach Source--->点击--->选择
+        文件所在的文件夹或者压缩包
+    4.Object类中
+        equals方法(注意重载,重写)
+        toString方法--->打印对象,就会打印该对象toString的返回内容
+    5.equals方法和hashCode方法
+	我们编程最终是需要和现实生活打交道,一般equals方法会作为
+	现实中两个对象的比较,如果返回true,我们就认为是同一个对象,
+	所有在使用equals方法的时候,需要注意 用唯一标识生成equals方法
+	和hashCode方法,直接利用eclipse工具帮我们生成即可.
+
+变量的隐藏
+    方法有重写or覆盖,那么成员变量呢?---->变量(非private)不存在覆盖的
+    
