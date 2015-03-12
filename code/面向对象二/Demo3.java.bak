@@ -1,0 +1,19 @@
+class Demo3 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}
+class Person
+{
+	Person(){
+		System.out.println("hello");
+	}
+}
+class Man extends Person
+{
+	Man(){
+		System.out.println("world");
+	}
+}
