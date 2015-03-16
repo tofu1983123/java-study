@@ -1,5 +1,5 @@
 package lesson3;
-
+import lesson3.Demo6;
 public class Demo13 {
 
 	public static void main(String[] args) {
