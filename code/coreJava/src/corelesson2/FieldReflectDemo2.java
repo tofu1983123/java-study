@@ -6,8 +6,38 @@ public class FieldReflectDemo2 {
 
 	public static void main(String[] args) {
 		User u = new User("zhangsan",30);
-		changeValue(u);
-		System.out.println(u.getName()+","+u.getAge());
+		//changeValue(u);
+		//System.out.println(u.getName()+","+u.getAge());
+		System.out.println(getSql(u));
+	}
+	/*
+	 * 得到insert into 类名(属性1,属性2,...)values(?,?,...)
+	 * */
+	public static String getSql(Object obj){
+		/*
+		 * 获取类的信息
+		 * 类名和属性名
+		 * 然后做拼接
+		 * */
+		StringBuilder s = new StringBuilder();
+		s.append("insert into ");
+		Class c = obj.getClass();
+		String className = c.getSimpleName();
+		s.append(className).append("(");
+		Field[] fs = c.getDeclaredFields();
+		for(int i = 0;i < fs.length;i++){
+			s = i == 0 ? s.append(fs[i].getName()):s.append(",").append(fs[i].getName());
+		}
+		s.append(")values").append(getString(fs.length));
+		return s.toString();
+	}
+	public static String getString(int length){
+		StringBuilder s = new StringBuilder();
+		s.append("(");
+		for(int i = 0;i < length;i++){
+			s = i == 0?s.append("?"):s.append(",?");
+		}
+		return s.append(")").toString();
 	}
 	/*
 	 * 修改对象的属性
