@@ -11,7 +11,7 @@ public class WormTest {
 		WormPanel panel = new WormPanel();
 		Worm worm = panel.getWorm();
 		/*for(int i = 0;i < 10;i++){
-			panel.print();
+			panel.print();u
 			worm.step();
 			try {
 				Thread.sleep(1000);//Ë¯1Ãë
