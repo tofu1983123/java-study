@@ -1,0 +1,11 @@
+<!ELEMENT allquestions(question)*>
+<!ELEMENT question(title,options,answers,score,level)>
+<!ELEMENT options(option)+>
+<!ELEMENT answers(answer)+>
+<!ELEMENT title(#PCDATA)>
+<!ELEMENT options(#PCDATA)>
+<!ELEMENT answers(#PCDATA)>
+<!ELEMENT score(#PCDATA)>
+<!ELEMENT level(#PCDATA)>
+
+<!ATTLIST question id CDATA #REQUIRED>

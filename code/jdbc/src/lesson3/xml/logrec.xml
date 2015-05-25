@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log-rec [
+	<!ELEMENT log-rec(log-data+,duration)>
+	<!ELEMENT log-data(user-name,pid,host,time)>
+	<!ELEMENT user-name(#PCDATA)>
+	<!ELEMENT pid(#PCDATA)>
+	<!ELEMENT host(#PCDATA)>
+	<!ELEMENT time(#PCDATA)>
+	<!ELEMENT duration(#PCDATA)>
+	<!ATTLIST log-data type CDATA #REQUIRED>
+]>
+<log-rec>
+	<log-data type="7">
+		<user-name>huangrong</user-name>
+		<pid>16321</pid>
+		<host>192.168.1.38</host>
+		<time>11111</time>
+	</log-data>
+	<log-data type="8">
+		<user-name>huangrong1</user-name>
+		<pid>16322</pid>
+		<host>192.168.1.39</host>
+		<time>22222</time>
+	</log-data>
+	<duration>3600</duration>
+</log-rec>

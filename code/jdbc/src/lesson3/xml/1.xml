@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+	<user id="1">
+		<name>zhangsan</name>
+		<pass>lisi</pass>
+		<birthday>1998-10-10</birthday>
+		<addresses>
+			<address id="work">中关村南大街</address>
+			<address id="home">丰台XX小区</address>
+		</addresses>
+	</user>
+</users>
