@@ -1,0 +1,197 @@
+1.会员管理模块(用户,权限,角色)
+  用户表(是某种角色)
+  权限表
+  角色(拥有哪些权限)
+2.版面管理模块(主版面,子版面,版面可以上移,下移)
+3.帖子回复
+------------------------------------------
+4.站内搜索
+5.博客链接等
+
+show databases;
+use wyzcbbs;
+
+修改mysql编码
+my.ini文件中 defalut-character-set=gbk
+		   character-set-server=gbk
+		   改完后重启服务
+用户表的创建
+create table `wyzc_user`(
+`id_` varchar(45) not null,
+`loginName_` varchar(128) default null,
+`password_` varchar(128) default null,
+`email_` varchar(128) default null,
+`nickname_` varchar(128) default null,
+`gender_` varchar(16) default null,
+`avatar_` mediumblob,
+`signature_` varchar(255) default null,
+`registrationTime_` datetime default null,
+`lastVisitTime_` datetime default null,
+`lastVisitIpAddr_` varchar(50) default null,
+`topicCount_` int(11) default null,			---->发表的帖子数
+`articleCount_` int(11) default null,		---->发表了文章数(包含了帖子的回复)
+`locked_` bit(1) default null,				---->用户是否被管理员锁定
+`autoLoginAuthKey_` varchar(128) default null,---->该字段将来用来做自动登录的验证
+primary key(`id_`)
+);
+
+角色表
+create table `wyzc_role`(
+`id_` varchar(255) not null,
+`name_` varchar(64) default null,
+`description_` varchar(255) default null,
+`defaultForNewUser_` bit(1) default null,---->新用户是否给默认角色
+primary key(`id_`)
+);
+一个用户可以拥有多个角色
+一个角色也可以被多个用户所拥有
+角色表和用户表之间是n:n的关系,通过第三张表来关联
+create table `wyzc_user_role`(
+`userId_` varchar(45) not null,
+`roleId_` varchar(255) not null,
+primary key(`userId_`,`roleId_`),
+key `FK9C95CD553B7C6692`(`roleId_`),
+key `FK9C95CD55E0A72A72`(`userId_`),
+constraint `FK9C95CD55E0A72A72` foreign key(`userId_`) references `wyzc_user`(`id_`),
+constraint `FK9C95CD553B7C6692` foreign key(`roleId_`) references `wyzc_role`(`id_`)
+);
+将来业务操作时就会有如下操作:
+1.根据用户查询该用户所拥有的角色
+2.根据角色查询该角色哪些用户拥有
+可以在用户表中添加集合存放角色,可以在角色表中添加集合存放用户.
+
+权限表
+create table `wyzc_systemprivilege`(
+`id_` varchar(255) not null,
+`name_` varchar(255) default null,
+`action_` varchar(64) default null,
+`resource_` varchar(64) default null,
+primary key(`id_`)
+);
+都有哪些权限,都定义好
+插入数据
+insert into wyzc_systemprivilege values
+('297e0592448b4e7201448b4ee117001e','发表主题','Create','Topic'),
+('297e0592448b4e7201448b4ee117001f','查看主题','Retrieval','Topic'),
+('297e0592448b4e7201448b4ee1170020','修改主题','Update','Topic'),
+('297e0592448b4e7201448b4ee1170021','删除主题','Delete','Topic'),
+('297e0592448b4e7201448b4ee1170022','移动主题','Move','Topic'),
+('297e0592448b4e7201448b4ee1170023','发表回复','Create','Reply'),
+('297e0592448b4e7201448b4ee1170024','查看回复','Retrieval','Reply'),
+('297e0592448b4e7201448b4ee1170025','修改回复','Update','Reply'),
+('297e0592448b4e7201448b4ee1170026','删除回复','Delete','Reply'),
+('297e0592448b4e7201448b4ee1170027','发表附件','Create','Attachment'),
+('297e0592448b4e7201448b4ee1170028','查看附件','Retrieval','Attachment'),
+('297e0592448b4e7201448b4ee1170029','更新附件','Update','Attachment'),
+('297e0592448b4e7201448b4ee117002a','删除附件','Delete','Attachment'),
+('297e0592448b4e7201448b4ee117002b','下载附件','Download','Attachment'),
+('297e0592448b4e7201448b4ee117002c','发表投票','Create','Poll'),
+('297e0592448b4e7201448b4ee117002d','查看投票','Retrieval','Poll'),
+('297e0592448b4e7201448b4ee117002e','修改投票','Update','Poll'),
+('297e0592448b4e7201448b4ee117002f','删除投票','Delete','Poll'),
+('297e0592448b4e7201448b4ee1170030','参与投票','Vote','Poll'),
+('297e0592448b4e7201448b4ee1170031','管理系统','Manage','System');
+
+一个角色可以拥有多个权限
+一个权限可以被多个角色所拥有
+所有角色表和权限表之间是多对多关系n:n
+通过第三张表建立该关系
+create table `wyzc_role_systemprivileges`(
+`roleId_` varchar(255) not null,
+`systemPrivilegeId_` varchar(255) not null,
+primary key(`roleId_`,`systemPrivilegeId_`),
+key `FK70476C853B7C6692`(`roleId_`),
+key `FK70476C8558D7FED6`(`systemPrivilegeId_`),
+constraint `FK70476C8558D7FED6` foreign key(`systemPrivilegeId_`) references `wyzc_systemprivilege`(`id_`),
+constraint `FK70476C853B7C6692` foreign key(`roleId_`) references `wyzc_role`(`id_`)
+);
+经常要做的是:查询角色有哪些权限.
+		  根据权限查询有哪些角色这种操作应该不会有.
+		  
+		  
+版块,分类表 将来需要上移,下移,通过order来修改
+create table `wyzc_category`(
+`id_` varchar(255) not null,
+`name_` varchar(255) default null,
+`order_` int(11) default null,
+primary key(`id_`)
+);
+子版块(二级版块) 属于某个父版块 主外键关系1:n
+子版块中就应该有帖子数,最新的帖子,等等.就需要跟帖子表有关联.1:1关联,引用主键
+当然帖子表属于某个二级版块,一个版块有多个帖子,帖子与版块是n:1的关系.
+创建子版块 ---->先不要建立和帖子表之间的关系.
+create table `wyzc_forum`(
+`id_` varchar(255) not null,
+`name_` varchar(255) default null,
+`description_` varchar(255) default null,
+`order_` int(11) default null,
+`categoryId_` varchar(255) default null,
+`topicCount_` int(11) default null,
+`articleCount_` int(11) default null,
+`lastTopicId_` varchar(255) default null,
+`lastArticlePostTime_` datetime default null,
+primary key(`id_`),
+key `FK903A938CCE73292`(`categoryId_`),
+constraint `FK903A938CCE73292` foreign key(`categoryId_`) references `wyzc_category`(`id_`)
+);
+在Forum类中把Category的对象作为成员---->代表该子版块属于哪个父版块
+在Category中添加集合,存放这个父版块的所有子版块
+
+创建帖子表
+(帖子属于哪个版块,帖子是谁发的,帖子的回复数,帖子的最后一个回复)
+create table `wyzc_topic`(
+`id_` varchar(255) not null,
+`title_` varchar(255) default null,
+`content_` text,
+`authorId_` varchar(45) default null,
+`postTime_` datetime default null,
+`ipAddr_` varchar(16) default null,
+`deleted_` bit(1) default null,
+`type_` varchar(255) default null,
+`forumId_` varchar(255) default null,
+`summary_` text,
+`viewCount_` int(11) default null,
+`replyCount_` int(11) default null,
+`lastReplyId_` varchar(255) default null,
+`lastArticlePostTime_` datetime default null,
+`nextFloor_` int(11) default null,
+primary key(`id_`),
+key `FK90FFD39A5FF9C116`(`forumId_`),
+key `FK90FFD39ABFE49D0C`(`lastReplyId_`),
+key `FK6899E4A141601CB290ffd39a`(`authorId_`),
+constraint `FK6899E4A141601CB290ffd39a` foreign key(`authorId_`) references `wyzc_user`(`id_`),
+constraint `FK90FFD39A5FF9C116` foreign key(`forumId_`) references `wyzc_forum`(`id_`)
+);
+
+修改wyzc_forum表中的lastTopicId_的约束
+alter table wyzc_forum add constraint `FK903A938CA091BAEC` foreign key(`lastTopicId_`) references `wyzc_topic`(`id_`);
+在Forum类中添加Topic对象
+
+创建回复表
+       回复的哪个帖子,谁回复的.
+create table `wyzc_reply`(
+`id_` varchar(255) not null,
+`title_`varchar(255) default null,
+`content_` text,
+`authorId_` varchar(45) default null,
+`postTime_` datetime default null,
+`ipAddr_` varchar(50) default null,
+`deleted_` bit(1) default null,
+`floor_` int(11) default null,
+`topicId_` varchar(255) default null,
+primary key(`id_`),
+key `FK90DF1955AF81E56`(`topicId_`),
+key `FK6899E4A141601CB290df1955`(`authorId_`),
+constraint `FK6899E4A141601CB290df1955` foreign key(`authorId_`) references `wyzc_user`(`id_`),
+constraint `FK90DF1955AF81E56` foreign key(`topicId_`) references `wyzc_topic`(`id_`)
+);
+
+修改wyzc_topic表中的lastReplyId_的约束
+alter table wyzc_topic add constraint `FK90FFD39ABFE49D0C` foreign key(`lastReplyId_`) references `wyzc_reply`(`id_`);
+在Forum类中添加最后一个回复的信息.
+
+===================================================================================
+数据库操作
+       尽量结合应用提炼数据库
+   a.JdbcUtil---->数据库连接信息
+   b.提炼通用的操作,避免重复写
