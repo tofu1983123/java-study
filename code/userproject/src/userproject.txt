@@ -1,0 +1,16 @@
+jsp  页面
+servlet  控制，任何请求到要交给控制器
+mvc
+m (数据+业务)
+v (视图 html/jsp/css...)
+C 控制器(Servlet)
+完成用户简单操作
+1.首页  跳转到登陆页面交给用户的Servlet--->转到login.jsp
+   所有模块的页面都放到WEB-INF目录下建立user/login.jsp
+2.只要是关于用户的操作，都交给UserServlet  
+  每个操作都提供一个参数，用来判断做什么
+3.完成登陆、退出操作
+4.如果未登陆，必须去登陆页面，其它页访问不了？
+  现在可以通过判断session中有没有用户信息
+  如果没有直接去login.jsp(通过UserServlet)
+  将来应该写到过滤器中，而且将来的jsp页面也是一样

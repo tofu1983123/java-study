@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>菜单的关闭和隐藏</title>
+        <meta http-equiv="content-type" content="text/html;charset=gbk" />
+		<style>
+		  ul,li{
+		    list-style:none;
+		  }
+		  ul{
+		    margin:0;
+			padding:0;
+		  }
+		  .main,.hmain {
+		    background-image:url(title.gif);
+			background-repeat:repeat-x;
+			width:120px;
+		  }
+		  li{
+		     background-color:#EEEEEE;
+		  }
+		  a{
+		    text-decoration :none;
+			display:block;
+			padding-left:20px;
+		  }
+		  .main a,.hmain a{
+		    color:white;
+			background-image:url(collapsed.gif);
+			background-repeat:no-repeat;
+			background-position:3px center
+		  }
+		  .main li a,.hmain li a{
+		    color:black;
+			background-image:none;
+		  }
+		  .main ul,.hmain ul{
+		     display:none;
+		  }
+		  .hmain{
+		    float:left;
+			margin:1px;
+		  }
+		</style>
+		<script src="jquery.js"></script>
+		<script>
+		  
+		   $(function(){
+			     var aNode =  $(".main > a");//main类选择器的直接子a
+				aNode.click(function(){
+					 var ulNode = $(this).next("ul");//aNode的兄弟节点ul
+					 //ulNode.slideDown("slow");
+					/* if(ulNode.css("display")=="none"){
+						 ulNode.slideDown("slow");
+					}else{
+						ulNode.slideUp("slow");
+					}*/
+					//ulNode.toggle("slow");
+					ulNode.slideToggle("slow");
+					changeIcon($(this));
+				});
+
+				 /*$(".hmain>a").mouseover(function(){
+					 $(this).next("ul").slideDown("slow");
+					 changeIcon($(this));
+				 });
+
+                 $(".hmain>a").mouseout(function(){
+					  $(this).next("ul").slideUp("slow");
+					   changeIcon($(this));
+				 });*/
+
+				 $(".hmain > a").hover(function(){
+				     $(this).next("ul").slideDown("slow");
+					 changeIcon($(this));
+				 },function(){
+				 	 $(this).next("ul").slideUp("slow");
+					 changeIcon($(this));
+				 });
+			
+			 });
+
+			
+			 function changeIcon(mainNode)
+			 {
+				 if(mainNode)//确实传来了节点
+				 {
+					 if(mainNode.css("background-image").indexOf("collapsed")>0)
+					 {
+						 mainNode.css("background-image","url(expanded.gif)");
+					 }else{
+						mainNode.css("background-image","url(collapsed.gif)");
+					 }
+				 }
+			 }
+		</script>
+   </head>
+   <body>
+        <ul>
+		  <li class="main"><a href="#">主菜单一</a>
+		     <ul> 
+			    <li><a href="#">子菜单1-1</a></li>
+				<li><a href="#">子菜单1-2</a></li>
+			 </ul>
+		  </li>
+		  <li class="main"><a href="#">主菜单二</a>
+		     <ul> 
+			    <li><a href="#">子菜单2-1</a></li>
+				<li><a href="#">子菜单2-2</a></li>
+			 </ul>
+		  </li>
+		  <li class="main"><a href="#">主菜单三</a>
+		     <ul> 
+			    <li><a href="#">子菜单3-1</a></li>
+				<li><a href="#">子菜单3-2</a></li>
+			 </ul>
+		  </li>
+		</ul>
+
+		<br/><br/><br/><br/><br/>
+
+		        <ul>
+		  <li class="hmain"><a href="#">主菜单一</a>
+		     <ul> 
+			    <li><a href="#">子菜单1-1</a></li>
+				<li><a href="#">子菜单1-2</a></li>
+			 </ul>
+		  </li>
+		  <li class="hmain"><a href="#">主菜单二</a>
+		     <ul> 
+			    <li><a href="#">子菜单2-1</a></li>
+				<li><a href="#">子菜单2-2</a></li>
+			 </ul>
+		  </li>
+		  <li class="hmain"><a href="#">主菜单三</a>
+		     <ul> 
+			    <li><a href="#">子菜单3-1</a></li>
+				<li><a href="#">子菜单3-2</a></li>
+			 </ul>
+		  </li>
+		</ul>
+
+   </body>
+</html>

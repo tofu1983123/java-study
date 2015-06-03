@@ -1,0 +1,82 @@
+js的函数库---->jquery部分
+1.去下载jquery的js
+   a.下载完之后，其实全部都是函数
+   b.下载一个关于jquery的帮助文档------>函数的说明
+   c.jquery的js如果要使用放在使用它的js前<script>标签导入
+ 2.jquery的选择器
+      a.窗体加载事件 
+         $(function(){
+	 });
+	 or 
+	 $(document).ready(function(){
+	 });
+
+    b.基本的选择器
+       $("#id")、$("标签")、$(".类")
+        $("选择器1，选择器2") -->获取选择器1和选择器2对应的标签
+    c.层级的选择器
+         $("选择器1  选择器2  选择器3...")--->获取选择器1下的选择器2下的选择器3对应的标签
+    d.其它通过帮助来获取
+
+
+案例:  可以编辑的表格
+        a.隔行显示背景色
+	    就需要用到选择器---》简单----》奇、偶数  
+	    语法：$("选择器:even")   or  $("选择器:odd");
+	    $("tr:even")     
+	    设置css
+	     元素.css("css样式",值)
+	    获取css
+	     元素.css("css样式");
+	  b.点击学号的单元格 先弹出内容
+	     元素.事件(function(){});
+	     跟内容相关的函数:  前面的函数都是获取内容，后面的是设置内容
+	      html(),html(内容)--->可以包含html元素
+	      val(),val(值)---->必须是value属性的值
+	      text(),text(值)---->元素内容只有文本
+
+	   c.点击学号单元格  往单元格中添加文本框，文本框的内容
+	      就是之前单元格的内容
+	      创建标签  $("<标签>")
+	      两个问题：1.点击文本框不应该有效果
+	                           元素.事件(function()
+				   {
+				       return false;
+				   });
+	                        2.看起来还是单元格，而不是文本框
+				   设置css通过css函数
+				   尺寸width()方法
+
+	  d.文本框的全部选中
+	     d.1把jquery对象转换成dom对象
+	          var domobj = jqueryobj.get(0);
+		  然后调用focus()方法和select方法
+             d.2 trigger
+	  e.修改内容之后按回车又变回单元格
+	     如果中途反悔了按esc回到初始状态
+	      e.键盘事件
+	          元素. keyup(function(event){  
+		   });
+
+
+案例:窗口的淡入淡出效果
+   fadeIn/fadeOut
+   slideDown/slideOut
+
+ 案例:菜单案例
+    1.$("选择器1 > 选择器2)--->1的直接子2
+    2.元素1.next(选择器)---->元素1的兄弟节点
+    3.toggle() 切换状态 slideToggle()
+    4.横向菜单中的鼠标事件
+       mouseout(fn)  mouseover(fn)  hover(fnIn,fnOut)
+
+ 案例:显示在中间的窗口
+      1.如何把js中的对象转换成jquery对象$(js对象)
+      2.如何计算jquery中元素的尺寸
+         width()/height();
+     3.触动滚动条 窗口还显示在中间位置
+        3.1滚动条事件、滚动条滚进去的距离
+	3.2$(window).scrollLeft()/$(window).scrollTop()
+	3.3解决滚动条在IE中闪烁的问题用延时
+	     延时带来跳跃的问题---->通过动画效果来解决animate方法
+        

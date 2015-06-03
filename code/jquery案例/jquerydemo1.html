@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>jquery选择器</title>
+        <meta http-equiv="content-type" content="text/html;charset=gbk" />
+		<script src="jquery.js"></script>
+		<script>
+		    //窗体一加载就做
+		    $(function(){
+				var mytable = $("#mytable");
+				alert(mytable.html());
+				var ulNode = $(".main");
+				alert(ulNode.html());
+
+				var p = $("p");
+				alert(p.html());
+
+				var btn = $("input[type='button']");
+				alert(btn.val());
+				var text = $("input[type='text']");
+				alert(text.val());
+			 });
+			/*$(document).ready(function()
+			{
+				alert("hello");
+			});*/
+		</script>
+   </head>
+   <body>
+   <table id="mytable"  border="1" align="center">
+      <thead><th>学号</th><th>姓名</th></thead>
+	  <tbody>
+	  <tr><td>0001</td><td>张三</td></tr>
+	  <tr><td>0002</td><td>李四</td></tr>
+	  </tbody>
+   </table>
+   <br>
+   <br>
+   <p>helloworld</p>
+   <ul class="main">
+     <li>学习用品</li>
+	 <li>家居用品</li>
+	 <li>电器</li>
+   </ul>
+   <br>
+   <input type="button" value="aa"/>
+   <br>
+   <input type="text"  value="zhangsan"/>
+   </body>
+</html>

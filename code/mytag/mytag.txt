@@ -1,0 +1,25 @@
+自定义标签
+	1.标签的几种形式
+	单独标签  <br/> 带属性的  <input type="text"/>
+	带主体的<p sytle=""></p>
+	2.组成部分
+    a.标签对应的后台的java类
+    	Tag, BodyTagSupport, TagAdapter, TagSupport
+    b.标签的描述通过tld文件
+		文件的头尾可以去tomcat的案例中查找  一般放在WEB-INF目录下
+		详见mytag.tld文件
+    c.  web.xml文件中导入
+    d.页面中使用
+    	taglib 指令导入
+    	<%@ taglib uri="/demotag" prefix="hello"%>  要指定前缀
+        
+        
+    3.SimpleTagSupport
+      
+    4.BodyTagSupport
+        
+ JSTL(java标准标签库)
+ 1.导入jar包       
+ 2.主要掌握JSTL中core(核心)标签库
+   2.1 <c:out/>标签
+   2.2 <c:set>标签

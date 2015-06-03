@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>可以编辑的表格</title>
+        <meta http-equiv="content-type" content="text/html;charset=gbk" />
+		<style>
+		   table{
+		     border:1px solid black;
+			 width:300px;
+			 border-collapse :collapse;
+		   }
+		   table th{
+		     border :1px solid black;
+			 width:50%;
+		   }
+		   table td{
+		      border:1px solid black;
+			  width:50%
+		   }
+		   table thead{
+		      background-color:#20B2AA;
+		   }
+		</style>
+		<script src="jquery.js"></script>
+		<script>
+		     $(function()
+			 {
+				 $("tr:even").css("background-color","#DCDCDC");
+
+				 $("td:even").click(function(){
+				       // alert($(this).html());
+					   var tdNode = $(this);
+					   //1.获取单元格的内容
+					   var text =tdNode.html();
+					   //2.先把单元格的内容设置为空
+					     tdNode.html("");
+					  //3.创建文本框
+					  var inputObj = $("<input type='text'>");
+					  inputObj.click(function()
+					  {
+						  return false;  //使得文本框上的点击事件无效
+					  });
+					  //修改文本框的样式
+					  inputObj.css("border-width","0")
+					  .css("background-color",$(this).css("background-color"))
+					  .css("font-size","18px")
+					  .width(tdNode.width());
+                       //4.给文本框设置内容
+					   inputObj.val(text);
+				
+					   //5.把文本框追加给当前的td
+					   inputObj.appendTo(tdNode);//$(this).append(inputObj);
+                       inputObj.keyup(function(event)
+					   {
+						     var myevent = window.event || event;
+							 //得到键值
+							 var keyCode = myevent.keyCode;
+							 //如果按下的是ESC   27  就回到之前状态
+							 if(keyCode==27)
+							    tdNode.html(text);
+						     if(keyCode==13){//又变回单元格
+								 //先获得文本框中的内容
+								 var inputValue = inputObj.val();
+								 tdNode.html(inputValue);
+
+							  }
+
+						});
+					   //获得全部选中的状态
+					  /*  var inputdomObj = inputObj.get(0);
+					   inputdomObj.focus();
+					   inputdomObj.select();*/
+					   inputObj.trigger("focus").trigger("select");
+				 });
+
+			 });
+		</script>
+   </head>
+   <body>
+      <table>
+	          <thead><tr><th colspan="2">可以编辑的表格</th></tr></thead>
+	  <tbody>
+	  <tr><th>学号</th><th>姓名</th></tr>
+	  <tr><td>0001</td><td>张三</td></tr>
+	  <tr><td>0002</td><td>李四</td></tr>
+	   <tr><td>0003</td><td>王五</td></tr>
+	    <tr><td>0004</td><td>赵六</td></tr>
+	  </tbody>
+	  <table>
+   </body>
+</html>

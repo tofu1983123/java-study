@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>淡入弹出窗口</title>
+        <meta http-equiv="content-type" content="text/html;charset=gbk" />
+		<style>
+		     .win{
+			     width:250px;
+				 background-color:#87CEEB;
+				 margin:5px;
+				 position:absolute;
+				 display:none;
+			  }
+			  .content{
+			    height:150px;
+				background-color:white;
+				border:2px solid #87CEEB;
+				overflow:auto;/*窗口有滚动条*/
+			  }
+			  .title{
+			      padding:2px;
+				  font-size:18px;
+			  }
+			  .title img{
+			  float:right;
+			  width:18px;
+			  height:18px;
+			  padding:2px;
+			  cursor:pointer;
+			  }
+		</style>
+		<script src="jquery.js">
+		</script>
+		<script>
+		var browserwidth, browserheight,scrollLeft,scrollTop;
+		var windowObj = $(window);//:吧window转换成jquery对象;
+		 var rbwin;
+	
+		   $(function(){
+				var win = $("#win");
+				var img = $(".title img");
+				/*窗体显示在浏览器的中间位置*/
+
+				/*要获取浏览器窗口部分的宽度和高度
+				   窗体本身的宽度和高度
+				   计算出中间位置
+				   设置css样式
+				*/
+                getBrowerSize();
+				var winheight = win.width();
+				var winwidth = win.height();
+				var top = (browserheight-winheight)/2 ;
+				var left = (browserwidth-winwidth)/2;
+				win.css("left",left).css("top",top);
+				win.slideDown(2000);
+               //滚动条事件
+			   var t;
+				windowObj.scroll(function(){
+					 clearTimeout(t);
+				      t =  setTimeout(function(){
+					  getBrowerSize();
+					  moveWin(win);
+					 moveWin(rbwin);
+					},300);
+				});
+				//窗体调整大小的事件
+				windowObj.resize(function(){
+					 clearTimeout(t);
+				      t =  setTimeout(function(){
+	                  getBrowerSize();
+					  moveWin(win);
+					 moveWin(rbwin);
+					},300);
+				});
+				img.click(function()
+				{
+					//win.hide();
+					//win.fadeOut(2000);
+					$(this).parent().parent().slideUp("slow");
+				});
+				$("#btn").click(function(){
+				   rbwin=$("#rb");
+					getBrowerSize();
+					var rbwinwidth = rbwin.outerWidth(true);
+					var rbwinheight = rbwin.outerHeight(true);
+					var left = browserwidth+scrollLeft-rbwinwidth;
+					var top = browserheight+scrollTop-rbwinheight;
+					rbwin.css("left",left).css("top",top);
+					rbwin.slideDown("slow");
+				});
+			 });
+			 /*获取浏览器的数据*/
+			 function getBrowerSize()
+			 {
+				 browserwidth = windowObj.width();
+				 browserheight = windowObj.height();
+				 scrollLeft = windowObj.scrollLeft();
+				 scrollTop = windowObj.scrollTop();
+			 }
+			 function moveWin(win)
+			 {
+				      var left = (browserwidth-win.outerWidth())/2+scrollLeft;
+					  var top = (browserheight-win.outerHeight())/2+scrollTop;
+					  //win.css("left",left).css("top",top);
+					  win.animate({"left":left,"top":top},300);
+			 }
+		</script>
+   </head>
+   <body>
+   <input type="button" value="右下角显示窗口" id="btn"/>
+   <br/><br/><br/><br/>
+     <br/><br/><br/><br/>
+	   <br/><br/><br/><br/>
+	     <br/><br/><br/><br/>
+		   <br/><br/><br/><br/>
+		     <br/><br/><br/><br/>
+			   <br/><br/><br/><br/>
+			     <br/><br/><br/><br/>
+				   <br/><br/><br/><br/>
+				   <br/><br/><br/><br/>
+     <br/><br/><br/><br/>
+	   <br/><br/><br/><br/>
+	     <br/><br/><br/><br/>
+		   <br/><br/><br/><br/>
+		     <br/><br/><br/><br/>
+			   <br/><br/><br/><br/>
+			     <br/><br/><br/><br/>
+				   <br/><br/><br/><br/>
+      <div class="win" id="win">
+	       <div class="title">
+		       我是窗口的标题栏
+			   <img src="close.gif" alt="close"/>
+		   </div>
+		   <div class="content">
+		       我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域 我是窗口的内容区域
+		   </div>
+	  </div>
+
+
+	     <div class="win" id="rb">
+	       <div class="title">
+		       我是窗口的标题栏
+			   <img src="close.gif" alt="close"/>
+		   </div>
+		   <div class="content">
+		      我是右下角的窗体内容部分
+		   </div>
+	  </div>
+   </body>
+</html>

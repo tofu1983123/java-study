@@ -1,0 +1,98 @@
+ajax  ---->异步的javaScript and xml
+
+  a.XMLHttpRequest对象
+   	function createXMLHttpRequest(){
+		if(window.XMLHttpRequest){
+			XMLHttp = new XMLHttpRequest();
+		}else if(window.ActiveObject){
+			XMLHttp= new ActiveObject("Microsoft.XMLHTTP");
+		}
+	}
+	
+  b.XMLHttpRequest对象的属性和方法
+	readyState属性---》请求从发起到响应有0,1,2,3,4 五个状态
+	状态==4的时候说明服务器正确给出了响应
+    onreadystatechange 属性 = 回调方法 ====》readyState状态值在发生变化时就调用方法
+    open(请求的方式，url,true)
+    send方法发送请求
+	属性status 200代表正常的响应   404代表找不到页面  500代表页面有错
+    responseText属性，服务器给出的响应输出的内容就是
+  c.post/get请求的发送
+
+  d.通过jquery发送请求
+(****************************************************************)
+get请求
+<Connection port="8080" protocol="HTTP/1.1"
+		connectionTimeout="20000"
+		redirectPort="8443"
+		URIEncoding="utf-8" /> <!-- 指定URI编码格式 -->
+在tomcat/conf/server.xml中修改,在8080那段代码后面添加URIEncoding="utf-8",然后重启tomcat.
+
+/*遇到中文乱码问题,尝试重新组装*/
+//获得请求参数
+String username = request.getParameter("username");
+byte[] bytes = username.getBytes("ISO-8859-1");//将请求数据用ISO-8859-1分解成字节数组
+username = new String(bytes,"utf-8");//将字节数组重新解码成字符串
+//使用URLDecoder解码字符串
+String name = request.getQueryString();//获取请求参数
+name1 = URLDecoder.decode(name,"utf-8");//重新解码
+(****************************************************************)
+2.jquery和后台交互返回数据是xml
+	案例:模拟自动提示功能  ---->Google
+    a.写页面auto.jsp 页面上就一个文本框
+	在文本框中按下键盘时就得到提示
+	文本框按下时加键盘的事件并从后台提取数据
+    b.完成键盘事件，提交请求，获取数据的操作
+    auto.js
+	单独做响应的是xml 要做reponse.setContextType("text/xml;charset=utf-8");
+          或者跳转到的页面就是text/xml
+    c.在页面上加层auto
+	把获取到的数据显示到层中
+       
+		数据xml格式转换成jquery
+		var jqueryObj = $(data);
+		find方法查找节点
+		each方法遍历
+		每个word节点创建一个层，追加给auto
+	
+	d.层的样式
+	e.只按下字母delete,退格等键才有效
+	并且文本框不为空才发送异步请求
+    autoNode 一开始是隐藏的，并且文本框没有匹配内容的时候，也得隐藏
+	f.鼠标移到某个层，哪个层就高亮
+	加鼠标移入移出事件
+	加鼠标点击事件完成选中的操作
+	g.加键盘事件，光标上下高亮的问题
+     
+	10.解决鼠标和键盘同时使用的问题
+          先动键盘，再移鼠标
+          先移鼠标，再动键盘
+          
+	11.过滤
+ 
+3.json格式数据交换
+  案例：模拟股票显示案例  
+	a.模拟股票数据和涨跌情况
+	b.用json的方式把数据传到前端
+	对象转json以后可以用工具类
+	现在我们自己做拼接
+      json:格式对象
+      {属性:值,属性2：值}---》简单的
+      {属性:{},属性2:{}}---->复杂一点的
+      ({"30000":{name:"上证指数",yes:2202.2,tod:2203.3,now:2332.0},
+       "00001":{name:"浦发银行",yes:23.5,tod:22.3,now:28.0}
+       })
+	c.完成页面操作
+    
+    
+4.案例:级联菜单
+	json数据格式还可以是：
+    [元素1，元素2，元素3]
+    
+	第四个参数json如果不写的话,在下面代码中data前加eval();
+	$.get("servlet",null,function(data){
+		obj = eval(data);
+	});
+ 
+   课后，现在还有很多流行的js库  --->jquery扩展库
+            jqueryUI/easyUI等等
